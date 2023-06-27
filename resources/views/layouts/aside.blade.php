@@ -11,7 +11,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('asset_template/dist/img/user2-160x160.jpg') }}"
+                <img src="{{ asset('storage/user/' . auth()->user()->photo) }}"
                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
@@ -70,6 +70,25 @@
                         </p>
                     </a>
                 </li>
+
+                @include('layouts.aside.aside-authorization')
+                @include('layouts.aside.aside-user_management')
+                @include('layouts.aside.aside-securitty')
+
+                {{-- logout --}}
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Logout
+                        </p>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                        class="d-none">
+                        @csrf
+                    </form>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

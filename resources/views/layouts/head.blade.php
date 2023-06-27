@@ -10,4 +10,6 @@
 <link rel="stylesheet" href="{{ asset('asset_template/dist/css/adminlte.min.css') }}">
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="{{ asset('asset_template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+{{-- csrf --}}
+<meta name="csrf-token" content="{{ csrf_token() }}">
 @stack('css')
