@@ -21,7 +21,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-          
+
             <!-- /.content-header -->
             @yield('content')
 
@@ -33,9 +33,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
             <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
+                <h5>{{ auth()->user()->name }}</h5>
+                <a href="{{ route('profile.edit') }}" class="nav-link">Edit Profile</a>
+                <a href="{{ route('profile.edit') }}" class="nav-link">Change Password</a>
+                <a href="{{ route('logout') }}" class="nav-link text-danger"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <p>
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </p>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
             </div>
+
+
         </aside>
         <!-- /.control-sidebar -->
 

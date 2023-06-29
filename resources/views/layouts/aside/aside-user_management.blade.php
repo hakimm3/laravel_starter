@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="#" class="nav-link">
+    <a href="#" class="nav-link  {{ request()->is('user-management/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-cog"></i>
       <p>
         User Management
@@ -8,15 +8,15 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ route('user-management.users.index') }}" class="nav-link">
+        <a href="{{ route('user-management.users.index') }}" class="nav-link {{ Route::is('user-management.users.index') ? 'active' : '' }}">
           <i class="far fa-circle nav-icon"></i>
-          <p>Master User</p>
+          <p>User</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('user-management.department.index') }}" class="nav-link">
+        <a href="{{ route('user-management.department.index') }}" class="nav-link {{ Route::is('user-management.department.index') ? 'active' : '' }}">
           <i class="far fa-circle nav-icon"></i>
-          <p>Master Department</p>
+          <p>Department</p>
         </a>
       </li>
     </ul>

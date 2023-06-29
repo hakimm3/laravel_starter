@@ -3,6 +3,7 @@
         function create() {
             $('#exampleModal').modal('show')
             $('#form').trigger('reset')
+            $('.modal-title').text("Create Role")
         }
 
         function store() {
@@ -48,6 +49,7 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#exampleModal').modal('show')
+                    $('.modal-title').text("Edit Roles")
                     $('#id').val(data.data.id)
                     $('#name').val(data.data.name)
                 },

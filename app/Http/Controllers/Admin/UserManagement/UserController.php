@@ -47,8 +47,6 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        // dd($request->all());
-        $photoName = uploadPhoto($request->photo, 'user');
         $user = User::updateOrCreate(
             ['id' => $request->id],
             [
@@ -56,8 +54,6 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'department_id' => $request->department_id,
-                'photo' => $photoName,
-                'password' => bcrypt($request->password),
             ]
         );
         $user->syncRoles($request->roles);

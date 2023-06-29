@@ -2,6 +2,7 @@
     <script>
         function create() {
             $('#exampleModal').modal('show')
+            $('.modal-title').text('Create Permission')
             $('#form').trigger('reset')
         }
 

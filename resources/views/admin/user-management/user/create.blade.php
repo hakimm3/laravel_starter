@@ -9,26 +9,11 @@
         }
 
         function store() {
-            var formData = new FormData()
-            formData.append('id', $('#id').val())
-            formData.append('photo', $('#photo').prop('files')[0] ?? '')
-            formData.append('name', $('#name').val())
-            formData.append('username', $('#username').val())
-            formData.append('email', $('#email').val())
-            formData.append('department_id', $('#department').val())
-            $('#role').val().forEach(function(role) {
-                formData.append('roles[]', role)
-            })
-            formData.append('password', $('#password').val())
-
-
             $.ajax({
                 url: "{{ route('user-management.users.store') }}",
                 type: "POST",
                 dataType: "JSON",
-                data: formData,
-                contentType: false,
-                processData: false,
+                data: $('#form').serialize(),
                 success: function(data) {
                     $('#exampleModal').modal('hide')
                     table.ajax.reload()

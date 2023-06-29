@@ -19,12 +19,12 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => bcrypt('password'),
-                'photo' => 'default.png',
             ]
         ];
 
         foreach ($data as $key => $value) {
-            \App\Models\User::create($value);
+            $user = \App\Models\User::create($value);
+            $user->syncRoles('admin');
         }
     }
 }

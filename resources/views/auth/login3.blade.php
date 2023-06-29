@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="password" placeholder="New Password" type="password" class="form-control @error('password') is-invalid @enderror"
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                             name="password" required autocomplete="new-password">
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -37,12 +37,12 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input id="password-confirm" type="password" placeholder="Confirm Password" class="form-control" name="password_confirmation"
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                             required autocomplete="new-password">
                     </div>
                     <div class="row">
                         <!-- /.col -->
-                        <div class="col-12">
+                        <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
                         </div>
                         <!-- /.col -->

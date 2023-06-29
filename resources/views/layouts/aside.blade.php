@@ -11,8 +11,13 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('storage/user/' . auth()->user()->photo) }}"
-                    class="img-circle elevation-2" alt="User Image">
+                @if (auth()->user()->photo == 'avatar.png')
+                    <img src="{{ asset('asset_template/dist/img/avatar.png') }}" class="img-circle elevation-2"
+                        alt="User Image">
+                @else
+                    <img src="{{ asset('storage/user/' . auth()->user()->photo) }}" class="img-circle elevation-2"
+                        alt="User Image">
+                @endif
             </div>
             <div class="info">
                 <a href="{{ route('profile.edit') }}" class="d-block">{{ auth()->user()->name }}</a>
@@ -38,39 +43,6 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Starter Pages
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-
                 @include('layouts.aside.aside-authorization')
                 @include('layouts.aside.aside-user_management')
                 @include('layouts.aside.aside-securitty')
@@ -84,11 +56,10 @@
                             Logout
                         </p>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                        class="d-none">
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
-
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
