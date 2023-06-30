@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function(){
         Route::post('role-permission/{id}', App\Http\Controllers\Admin\Authorization\RolePermissionController::class)->name('role-permission');
         Route::resource('permission', App\Http\Controllers\Admin\Authorization\PermissionController::class)->except('show', 'update', 'create');
     });
+
+    Route::prefix('cms')->as('cms.')->group(function(){
+       Route::resource('site', App\Http\Controllers\Admin\CMS\SiteController::class)->only('index', 'update');
+    });
 });
 
 
