@@ -33,8 +33,6 @@ class ProfileController extends Controller
             'username' => 'required|unique:users,username,' . auth()->id(),
             'email' => 'required|email|unique:users,email,' . auth()->id(),
             'department_id' => 'required|exists:departments,id',
-            'roles' => 'required|array',
-            'roles.*' => 'required|exists:roles,id',
         ]);
 
         $user = User::findOrFail(auth()->id());

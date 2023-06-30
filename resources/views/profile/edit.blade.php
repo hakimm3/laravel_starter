@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
-                                                <button type="submit" class="btn btn-danger"
+                                                <button type="submit" class="btn btn-success"
                                                     onclick="update_password()">Submit</button>
                                             </div>
                                         </div>
@@ -169,7 +169,7 @@
                                         <div class="form-group row">
                                             <div class="offset-sm-2 col-sm-10">
                                                 <button type="submit" onclick="update_profile()"
-                                                    class="btn btn-danger">Submit</button>
+                                                    class="btn btn-success">Submit</button>
                                             </div>
                                         </div>
                                     </form>
