@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function(){
     });
 
     Route::prefix('cms')->as('cms.')->group(function(){
-       Route::resource('site', App\Http\Controllers\Admin\CMS\SiteController::class)->only('index', 'update');
+       Route::resource('site', App\Http\Controllers\Admin\CMS\SiteController::class)->only('index', 'store');
+       Route::resource('theme', App\Http\Controllers\Admin\CMS\ThemeController::class)->only('index', 'store');
     });
 });
 

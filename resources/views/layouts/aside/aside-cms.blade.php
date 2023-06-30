@@ -8,9 +8,15 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link {{ Route::is('authorization.role.index') ? 'active' : '' }}">
+            <a href="{{ route('cms.site.index') }}" class="nav-link {{ Route::is('cms.site.index') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Site Setting</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('cms.theme.index') }}" class="nav-link {{ Route::is('cms.theme.index') ? 'active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Theme</p>
             </a>
         </li>
         <li class="nav-item">

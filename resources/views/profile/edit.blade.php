@@ -16,14 +16,20 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                    src="{{ asset('storage/user/' . auth()->user()->photo) }}" alt="User profile picture">
+                                @if (auth()->user()->photo == 'avatar.png')
+                                    <img class="profile-user-img img-fluid img-circle"
+                                        src="{{ asset('asset_template/dist/img/avatar.png') }}" alt="User profile picture">
+                                @else
+                                    <img src="{{ asset('storage/user/' . auth()->user()->photo) }}"
+                                        class="img-circle elevation-2" alt="User profile picture" width="200px">
+                                @endif
                             </div>
 
                             <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
 
-                            <p class="text-muted text-center">{{ $stringRole }}</p>
-                            <button class="btn btn-primary btn-block"  data-toggle="modal" data-target="#updatePhotoModal">Update Photo</button>
+                            <p class="text-muted text-center">{{ auth()->user()->roles->pluck('name')->implode(', ') }}</p>
+                            <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#updatePhotoModal">Update
+                                Photo</button>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -73,9 +79,8 @@
                                         <strong>Roles</strong>
 
                                         <p class="text-muted">
-                                            @foreach (auth()->user()->roles as $role)
-                                                <span class="tag tag-success">{{ $role->name }}</span>
-                                            @endforeach
+                                            <span
+                                                class="tag tag-success">{{ auth()->user()->roles->pluck('name')->implode(', ') }}</span>
                                         </p>
 
                                         <hr>
@@ -187,7 +192,7 @@
 
     </x-admin.layout-component>
 
-    {{-- modal update photo --}}    
+    {{-- modal update photo --}}
     <div class="modal fade" id="updatePhotoModal" aria-labelledby="updatePhotoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -201,7 +206,8 @@
                     <form action="" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="">Photo</label>
-                            <input type="file" name="photo" id="photo" class="form-control" placeholder="Photo">
+                            <input type="file" name="photo" id="photo" class="form-control"
+                                placeholder="Photo">
                         </div>
                     </form>
                 </div>
@@ -304,7 +310,7 @@
             });
         }
 
-        function update_photo(){
+        function update_photo() {
             event.preventDefault();
             var formData = new FormData();
             formData.append('photo', $('#photo').prop('files')[0]);

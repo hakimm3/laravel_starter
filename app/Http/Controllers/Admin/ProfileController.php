@@ -13,16 +13,10 @@ class ProfileController extends Controller
     public function edit(){
         $roles = Role::all();
         $departments = Department::all();
-      
-        $stringRole = '';
-        foreach(auth()->user()->roles as $role){
-            $stringRole .= $role->name . ', ';
-        }
 
         $compact = compact(
             'roles',
             'departments',
-            'stringRole'
         );
         return view('profile.edit', $compact);
     }

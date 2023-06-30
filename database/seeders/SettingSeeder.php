@@ -19,11 +19,11 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key'   => 'brand_phone',
-                'value' => ''
+                'value' => '09238383732'
             ],
             [
                 'key'   => 'brand_address',
-                'value' => ''
+                'value' => 'Jl. Jalan No. 1, Jakarta Selatan'
             ],
             [
                 'key'   => 'site_name',
