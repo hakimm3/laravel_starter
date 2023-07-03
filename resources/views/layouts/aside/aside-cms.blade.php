@@ -20,8 +20,8 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('authorization.permission.index') }}"
-                class="nav-link {{ Route::is('authorization.permission.index') ? 'active' : '' }}">
+            <a href="{{ route('cms.slider.index') }}"
+                class="nav-link {{ Route::is('cms.slider.index') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Slider</p>
             </a>

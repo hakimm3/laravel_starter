@@ -7,6 +7,7 @@
         @endslot
         @slot('breadcrumb')
             <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">CMS</a></li>
             <li class="breadcrumb-item active">Theme Settings</li>
         @endslot
         @slot('content')

@@ -7,6 +7,7 @@
         @endslot
         @slot('breadcrumb')
             <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">CMS</a></li>
             <li class="breadcrumb-item active">Site Setting</li>
         @endslot
 
@@ -80,7 +81,6 @@
             $('form').submit(function(e) {
                 e.preventDefault();
                 let formData = new FormData(this);
-                console.log(formData);
                 $.ajax({
                     url: "{{ route('cms.site.store') }}",
                     type: "POST",
