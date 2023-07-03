@@ -12,4 +12,23 @@
 <link rel="stylesheet" href="{{ asset('asset_template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 {{-- csrf --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
+
+<style>
+    .main-sidebar {
+        background-color: {{ App\Models\Setting::get('color_sidebar') ?? '#007BFF' }};
+    }
+
+    .main-header {
+        background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }};
+    }
+
+    .brand-link {
+        background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }} !important;
+    }
+
+    .bg-theme {
+        background-color: {{ App\Models\Setting::get('color_sidebar') ?? '#007BFF' }} !important;
+    }
+</style>
+
 @stack('css')

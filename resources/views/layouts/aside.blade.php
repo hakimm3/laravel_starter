@@ -8,21 +8,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
-            <div class="image">
-                @if (auth()->user()->photo == 'avatar.png')
-                    <img src="{{ asset('asset_template/dist/img/avatar.png') }}" class="img-circle elevation-2"
-                        alt="User Image">
-                @else
-                    <img src="{{ asset('storage/user/' . auth()->user()->photo) }}" class="img-circle elevation-2"
-                        alt="User Image">
-                @endif
-            </div>
-            <div class="info">
-                <a href="{{ route('profile.edit') }}" class="d-block">{{ auth()->user()->name }}</a>
-            </div>
-        </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="image text-center">

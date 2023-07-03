@@ -29,14 +29,14 @@
                             <label for="example-color-input" class="col-md-3 col-form-label">Sidebar & Primary Color</label>
                             <div class="col-md-1">
                                 <input class="form-control form-control-color mw-100" type="color"
-                                    value="{{ App\Models\Setting::get('color_sidebar') ?? '#556ee6' }}" name="color_sidebar">
+                                    value="{{ App\Models\Setting::get('color_sidebar') ?? '#007BFF' }}" name="color_sidebar">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="example-color-input" class="col-md-3 col-form-label">Top Sidebar</label>
                             <div class="col-md-1">
                                 <input class="form-control form-control-color mw-100" type="color"
-                                    value="{{ App\Models\Setting::get('color_sidebar_brand') ?? '#556ee6' }}"
+                                    value="{{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }}"
                                     name="color_sidebar_brand">
                             </div>
                         </div>
