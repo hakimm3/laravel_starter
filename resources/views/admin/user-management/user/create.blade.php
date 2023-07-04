@@ -4,8 +4,8 @@
             $('.modal-title').text('Create User')
             $('#exampleModal').modal('show')
             $('#form').trigger('reset')
-            $('$department').trigger('reset')
-            $('$roles').trigger('reset')
+            $('#department').val(null).trigger('change')
+            $('#role').val(null).trigger('change')
         }
 
         function store() {

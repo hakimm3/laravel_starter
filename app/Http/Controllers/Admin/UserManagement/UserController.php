@@ -15,24 +15,38 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $users = User::with('department')->latest();
+            $users = User::with('department')
+            ->when($request->status, function ($query) use ($request) {
+                if ($request->status == 'All') {
+                    return $query->withTrashed();
+                }
+                if ($request->status == 'Active') {
+                    return $query->whereNull('deleted_at');
+                }
+                return $query->whereNotNull('deleted_at');
+            })
+            ->withTrashed()->latest();
             return DataTables::eloquent($users)
                 ->addIndexColumn()
                 ->addColumn('department', function ($row) {
                     return $row->department->name ?? '-';
                 })
                 ->addColumn('roles', function ($row) {
-                    $roles = '';
-                    foreach ($row->roles as $role) {
-                        $roles .= $role->name . ', ';
-                    }
-                    return $roles;
+                    return '<span class="badge badge-secondary">' . $row->roles()->pluck('name')->implode(', ') . '</span>';
                 })
                 ->addColumn('photo', function ($row) {
-                    return '<img src="' . asset('storage/user/' . $row->photo) . '" width="50px">';
+                    if ($row->photo) {
+                        return '<img src="' . asset('storage/user/' . $row->photo) . '" width="50px">';
+                    }
+                    return '-';
+                })
+                ->addColumn('status', function ($row) {
+                    $status = $row->deleted_at ? 'Inactive' : 'Active';
+                    $color = $row->deleted_at ? 'danger' : 'success';
+                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
                 })
                 ->addColumn('action', 'admin.user-management.user.action')
-                ->rawColumns(['action', 'roles', 'photo'])
+                ->rawColumns(['action', 'roles', 'photo', 'status'])
                 ->make(true);
         }
 
@@ -69,7 +83,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $user = User::with('roles')->find($id);
+        $user = User::withTrashed()->with('roles')->find($id);
         return response()->json([
             'success' => true,
             'data' => $user
@@ -84,6 +98,17 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'User deleted successfully'
+        ], 200);
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->find($id);
+        $user->restore();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'User restored successfully'
         ], 200);
     }
 }

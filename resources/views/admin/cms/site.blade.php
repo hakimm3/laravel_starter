@@ -94,7 +94,9 @@
                             text: response.message,
                             showConfirmButton: false,
                             timer: 1500
-                        });
+                        }).then(function() {
+                            location.reload();
+                        })
                     },
                     error: function(data){
                         let error_message = '<ul>'

@@ -13,7 +13,17 @@ class SliderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $sliders = \App\Models\Slider::all();
+            $sliders = Slider::when($request->status, function ($q) use ($request) {
+                if ($request->status == 'All') {
+                    return $q->withTrashed();
+                }
+                if ($request->status == 'Active') {
+                    return $q->whereNull('deleted_at');
+                }
+                return $q->whereNotNull('deleted_at');
+            })
+                ->withTrashed()
+                ->latest();
             return DataTables::of($sliders)
                 ->addIndexColumn()
                 ->addColumn('image', function ($row) {
@@ -21,8 +31,9 @@ class SliderController extends Controller
                     return $image;
                 })
                 ->addColumn('status', function ($slider) {
-                    $status = $slider->status ? '<button class="btn btn-sm btn-success">Active</button>' : '<button class="btn btn-sm btn-danger">Inactive</button>';
-                    return $status;
+                    $status = $slider->deleted_at ? 'Inactive' : 'Active';
+                    $color = $slider->deleted_at ? 'danger' : 'success';
+                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
                 })
                 ->addColumn('action', 'admin.cms.slider.action')
                 ->rawColumns(['action', 'status', 'image'])
@@ -79,6 +90,16 @@ class SliderController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Slider deleted successfully',
+        ], 200);
+    }
+
+    public function restore($id)
+    {
+        $slider = \App\Models\Slider::withTrashed()->find($id);
+        $slider->restore();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Slider restored successfully',
         ], 200);
     }
 }

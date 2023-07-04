@@ -11,7 +11,21 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-primary my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-3">
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
+                                <div class="col-sm-5 col-md-8">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inctive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endslot
                 @slot('columns')
                     <th>Name</th>
@@ -20,6 +34,7 @@
                     <th>Department</th>
                     <th>Photo</th>
                     <th>Roles</th>
+                    <th>Status</th>
                 @endslot
             </x-admin.data-table-component>
         @endslot
@@ -29,19 +44,19 @@
         @slot('modalBody')
             <form action="" id="form" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="">Name</label>
+                    <label for="">Name <span class="text-danger">*</span></label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <label for="">Username</label>
+                    <label for="">Username <span class="text-danger">*</span></label>
                     <input type="text" name="username" id="username" class="form-control" placeholder="Username">
                 </div>
                 <div class="form-group">
-                    <label for="">Email</label>
+                    <label for="">Email <span class="text-danger">*</span></label>
                     <input type="text" name="email" id="email" class="form-control" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="">Department</label>
+                    <label for="">Department <span class="text-danger">*</span></label>
                     <select name="department_id" id="department" class="form-control">
                         <option value="">Select Department</option>
                         @foreach ($departments as $department)
@@ -50,7 +65,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Role</label>
+                    <label for="">Role <span class="text-danger">*</span></label>
                     <select name="roles[]" id="role" class="form-control" multiple>
                         <option value="">--Select Role --</option>
                         @foreach ($roles as $role)
@@ -58,6 +73,7 @@
                         @endforeach
                     </select>
                 </div>
+                <span>* Password default <b>password</b></span>
                 <input type="hidden" name="id" id="id">
             </form>
         @endslot
@@ -110,11 +126,18 @@
                     name: 'roles'
                 },
                 {
+                    data: 'status',
+                    name: 'status',
+                    class: 'text-center',
+                    width: '10%',
+                    orderable: false,
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
                     searchable: false,
-
+                    class: 'text-center'
                 }
             ]
         })
@@ -157,6 +180,41 @@
                     }
                 });
         }
+
+        function restore(id) {
+            Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    dangerMode: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "{{ route('user-management.users.restore', ':id') }}";
+                        url = url.replace(':id', id);
+
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            success: function(data) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: "Data Succesfully Restored",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                });
+                                table.ajax.reload()
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert('Error restoring data');
+                            }
+                        });
+                    }
+                });
+        }
     </script>
     <script>
         // select 2
@@ -171,6 +229,11 @@
             theme: 'bootstrap4',
             placeholder: 'Select Department',
             allowClear: true
+        })
+
+        // filter status
+        $('#status').change(function() {
+           table.ajax.url("{{ route('user-management.users.index') }}?status=" + $(this).val()).load()
         })
     </script>
 @endpush

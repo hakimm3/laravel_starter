@@ -11,13 +11,28 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-primary my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
-                @endslot
-                @slot('columns')
-                    <th>Name</th>
-                    <th>Code</th>
-                    <th>Description</th>
-                @endslot
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-3">
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
+                                <div class="col-sm-5 col-md-8">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inctive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endslot
+                    @slot('columns')
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                    @endslot
             </x-admin.data-table-component>
         @endslot
     </x-admin.layout-component>
@@ -26,11 +41,11 @@
         @slot('modalBody')
             <form action="" id="form">
                 <div class="form-group">
-                    <label for="">Name</label>
+                    <label for="">Name <span class="text-danger">*</span></label>
                     <input type="text" name="name" id="name" class="form-control" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <label for="">Code</label>
+                    <label for="">Code <span class="text-danger">*</span></label>
                     <input type="text" name="code" id="code" class="form-control" placeholder="Code">
                 </div>
                 <div class="form-group">
@@ -59,22 +74,30 @@
                     searchable: false
                 },
                 {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
                     data: 'code',
                     name: 'code'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
                 },
                 {
                     data: 'description',
                     name: 'description'
                 },
                 {
+                    data: 'status',
+                    name: 'status',
+                    class: 'text-center',
+                    width: '10%',
+                    orderable: false,
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    class: 'text-center'
                 },
             ]
         })
@@ -117,6 +140,47 @@
                     }
                 });
         }
+
+        function restore(id) {
+            Swal.fire({
+                    title: "Are you sure?",
+                    text: "You want to restore this data?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    dangerMode: true,
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "{{ route('user-management.department.restore', ':id') }}";
+                        url = url.replace(':id', id);
+
+                        $.ajax({
+                            url: url,
+                            type: "GET",
+                            success: function(data) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: "Data Succesfully Restored",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                });
+                                table.ajax.reload()
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert('Error restoring data');
+                            }
+                        });
+                    }
+                });
+        }
+    </script>
+    <script>
+        // filter 
+        $('#status').on('change', function() {
+            table.ajax.url("{{ route('user-management.department.index') }}?status=" + $(this).val()).load();
+        });
     </script>
 @endpush
 @include('admin.user-management.department.create')

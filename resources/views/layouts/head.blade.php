@@ -26,8 +26,17 @@
         background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }} !important;
     }
 
-    .bg-theme {
+    .bg-color-sidebar {
         background-color: {{ App\Models\Setting::get('color_sidebar') ?? '#007BFF' }} !important;
+    }
+
+    .bg-color-sidebar-brand {
+        background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }} !important;
+    }
+
+    .nav-item>.nav-link.active {
+        background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }} !important;
+        color: #fff;
     }
 </style>
 

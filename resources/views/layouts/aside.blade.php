@@ -1,21 +1,26 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link bg-primary">
-        <img src="{{ asset('asset_template/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="{{ route('home') }}" class="brand-link text-light">
+        @if (App\Models\Setting::get('logo_small'))
+            <img src="{{ asset('storage/setting/' . App\Models\Setting::get('logo_small')) }}" alt="Brand Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+        @else
+            <img src="{{ asset('asset_template/dist/img/AdminLTELogo.png') }}" alt="Brand Logo"
+                class="brand-image img-circle elevation-3" style="opacity: .8">
+        @endif
+        <span class="brand-text font-weight-light"> {{ App\Models\Setting::get('site_name') }} </span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="row">
             <div class="col-md-12">
-                <div class="image text-center">
-                    @if (auth()->user()->photo == 'avatar.png')
-                        <img src="{{ asset('asset_template/dist/img/avatar.png') }}" class="img-circle elevation-2"
+                <div class="image text-center mt-3">
+                    @if (auth()->user()->photo)
+                        <img src="{{ asset('storage/user/' . auth()->user()->photo) }}" class="img-circle elevation-2"
                             width="50px" alt="User Image">
                     @else
-                        <img src="{{ asset('storage/user/' . auth()->user()->photo) }}" class="img-circle elevation-2"
+                        <img src="{{ asset('asset_template/dist/img/avatar.png') }}" class="img-circle elevation-2"
                             width="50px" alt="User Image">
                     @endif
                 </div>

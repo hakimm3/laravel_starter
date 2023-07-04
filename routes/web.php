@@ -29,18 +29,26 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('user-management')->as('user-management.')->group(function () {
         Route::resource('department', App\Http\Controllers\Admin\UserManagement\DepartmentController::class)->except('show', 'update', 'create');
+        Route::get('department-restore/{id}', [App\Http\Controllers\Admin\UserManagement\DepartmentController::class, 'restore'])->name('department.restore');
+
         Route::resource('users',  App\Http\Controllers\Admin\UserManagement\UserController::class)->except('show', 'update', 'create');
+        Route::get('users-restore/{id}', [App\Http\Controllers\Admin\UserManagement\UserController::class, 'restore'])->name('users.restore');
     });
 
     Route::prefix('authorization')->as('authorization.')->group(function () {
         Route::resource('role', App\Http\Controllers\Admin\Authorization\RoleController::class)->except('update', 'create');
         Route::post('role-permission/{id}', App\Http\Controllers\Admin\Authorization\RolePermissionController::class)->name('role-permission');
+        Route::get('role-restore/{id}', [App\Http\Controllers\Admin\Authorization\RoleController::class, 'restore'])->name('role.restore');
+
         Route::resource('permission', App\Http\Controllers\Admin\Authorization\PermissionController::class)->except('show', 'update', 'create');
+        Route::get('permission-restore/{id}', [App\Http\Controllers\Admin\Authorization\PermissionController::class, 'restore'])->name('permission.restore');
     });
 
     Route::prefix('cms')->as('cms.')->group(function () {
         Route::resource('site', App\Http\Controllers\Admin\CMS\SiteController::class)->only('index', 'store');
         Route::resource('theme', App\Http\Controllers\Admin\CMS\ThemeController::class)->only('index', 'store');
+
         Route::resource('slider', App\Http\Controllers\Admin\CMS\SliderController::class)->except('show', 'create');
+        Route::get('slider-restore/{id}', [App\Http\Controllers\Admin\CMS\SliderController::class, 'restore'])->name('slider.restore');
     });
 });

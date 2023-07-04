@@ -11,19 +11,37 @@ use Yajra\DataTables\Facades\DataTables;
 
 class DepartmentController extends Controller
 {
-    public function index(Request $request){
-        if($request->ajax()){
-            $departments = Department::latest();
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            $departments = Department::withTrashed()
+                ->when($request->status, function ($query) use ($request) {
+                    if ($request->status == 'All') {
+                        return $query->withTrashed();
+                    }
+                    if ($request->status == 'Active') {
+                        return $query->whereNull('deleted_at');
+                    }
+                    return $query->whereNotNull('deleted_at');
+                })
+                ->latest();
             return DataTables::eloquent($departments)
                 ->addIndexColumn()
+                ->addColumn('status', function ($row) {
+                    $status = $row->deleted_at ? 'Inactive' : 'Active';
+                    $color = $row->deleted_at ? 'danger' : 'success';
+                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
+                })
                 ->addColumn('action', 'admin.user-management.department.action')
+                ->rawColumns(['action', 'status'])
                 ->make(true);
         }
 
         return view('admin.user-management.department.index');
     }
 
-    public function store(DepartmentRequest $request){
+    public function store(DepartmentRequest $request)
+    {
         Department::updateOrCreate(['id' => $request->id], [
             'name' => $request->name,
             'code' => $request->code,
@@ -34,20 +52,30 @@ class DepartmentController extends Controller
             'success' => true,
             'message' => 'Department saved successfully'
         ], 201);
-
     }
 
-    public function edit($id){
-        $department = Department::find($id);
+    public function edit($id)
+    {
+        $department = Department::withTrashed()->find($id);
         return response()->json([
             'success' => true,
             'data' => $department
         ], 200);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $department = Department::find($id);
         $department->delete();
+        return response()->json([
+            'success' => true,
+        ], 200);
+    }
+
+    public function restore($id)
+    {
+        $department = Department::withTrashed()->find($id);
+        $department->restore();
         return response()->json([
             'success' => true,
         ], 200);

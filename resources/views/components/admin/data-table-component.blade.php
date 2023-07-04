@@ -4,11 +4,11 @@
     </div>
     <div class="card-body">
         <table id="{{ $id }}" class="table table-bordered table-hover">
-            <thead class="bg-primary">
+            <thead class="bg-primary bg-color-sidebar-brand">
                 <tr>
                     <th style="width: 5%">No</th>
                     {{ $columns }}
-                    <th style="width: 15%" class="text-center">Action</th>
+                    <th style="width: 10%" class="text-center">Action</th>
                 </tr>
             </thead>
         </table>

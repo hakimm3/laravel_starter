@@ -12,7 +12,21 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-primary my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-3">
+                            <div class="form-group row">
+                                <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
+                                <div class="col-sm-5 col-md-8">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="All">All</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inctive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @endslot
                 @slot('columns')
                     <th>Image</th>
@@ -27,20 +41,20 @@
         @slot('modalBody')
             <form action="" id="form" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="">Image</label>
+                    <label for="">Image <span class="text-danger">*</span></label>
                     <input type="file" name="image" id="image" class="form-control" placeholder="Image">
                 </div>
                 <div class="form-group">
-                    <label for="">Title</label>
+                    <label for="">Title <span class="text-danger">*</span></label>
                     <input type="text" name="title" id="title" class="form-control" placeholder="Title">
                 </div>
                 <div class="form-group">
-                    <label for="">Description</label>
+                    <label for="">Description <span class="text-danger">*</span></label>
                     <textarea name="description" id="description" cols="30" rows="5" class="form-control"
                         placeholder="Description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="">Status</label>
+                    <label for="">Status <span class="text-danger">*</span></label>
                     <select name="status" id="status" class="form-control">
                         <option value="1">Active</option>
                         <option value="0">Inactive</option>
@@ -78,18 +92,21 @@
                 },
                 {
                     data: 'status',
-                    name: 'status'
+                    name: 'status',
+                    class: 'text-center',
+                    width: '10%'
                 },
                 {
                     data: 'action',
                     name: 'action',
                     orderable: false,
-                    searchable: false
+                    searchable: false,
+                    class: 'text-center'
                 },
             ]
         });
 
-        function destroy(id){
+        function destroy(id) {
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -106,7 +123,7 @@
                         data: {
                             _token: "{{ csrf_token() }}"
                         },
-                        success: function(response){
+                        success: function(response) {
                             $('#table').DataTable().ajax.reload();
                             Swal.fire({
                                 icon: 'success',
@@ -117,7 +134,7 @@
                                 timerProgressBar: true,
                             });
                         },
-                        error: function(data){
+                        error: function(data) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -128,6 +145,48 @@
                 }
             })
         }
+
+        function restore(id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to restore this data!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#556ee6',
+                cancelButtonColor: '#f46a6a',
+                confirmButtonText: 'Yes, restore it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('cms.slider.restore', ':id') }}".replace(':id', id),
+                        type: "GET",
+                        success: function(response) {
+                            $('#table').DataTable().ajax.reload();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                timerProgressBar: true,
+                            });
+                        },
+                        error: function(data) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.message,
+                            });
+                        }
+                    });
+                }
+            })
+        }
+    </script>
+    <script>
+        $('#status').on('change', function() {
+            table.ajax.url("{{ route('cms.slider.index') }}?status=" + $(this).val()).load();
+        });
     </script>
 @endpush
 @include('admin.cms.slider.create')
