@@ -25,10 +25,14 @@
                     })
                 },
                 error: function(data) {
-                    let errors = data.responseJSON.errors
+                    let error_messages = '<ul>'
+                    $.each(data.responseJSON.errors, function(key, value) {
+                        error_messages += '<li>' + value + '</li>'
+                    })
+                    error_messages += '</ul>'
                     Swal.fire({
                         title: 'Error!',
-                        html: errors,
+                        html: error_messages,
                         icon: 'error',
                         showConfirmButton: true,
                     })

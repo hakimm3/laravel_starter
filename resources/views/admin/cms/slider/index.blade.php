@@ -53,13 +53,6 @@
                     <textarea name="description" id="description" cols="30" rows="5" class="form-control"
                         placeholder="Description"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="">Status <span class="text-danger">*</span></label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
                 <input type="hidden" name="id" id="id">
             </form>
         @endslot

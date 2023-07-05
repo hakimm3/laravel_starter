@@ -6,7 +6,7 @@
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
-    <ul class="nav nav-treeview">
+    <ul class="nav nav-treeview {{ request()->is('user-management/*') ? 'd-block' : '' }}">
         <li class="nav-item">
             <a href="{{ route('user-management.department.index') }}"
                 class="nav-link {{ Route::is('user-management.department.index') ? 'active' : '' }}">

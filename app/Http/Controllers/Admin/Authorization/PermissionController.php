@@ -50,7 +50,7 @@ class PermissionController extends Controller
                 new MinWords(2),
             ]
         ]);
-        $permission = Permission::updateOrCreate(
+        $permission = Permission::withTrashed()->updateOrCreate(
             ['id' => $request->id],
             [
                 'name' => $request->name,

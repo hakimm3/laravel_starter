@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Authorization;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
+use Spatie\Permission\Models\Role as SpatieRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
@@ -44,10 +45,10 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:roles,name',
+            'name' => 'required|unique:roles,name,'. $request->id . ',id'
         ]);
 
-        Role::updateOrCreate(['id' => $request->id], [
+        Role::withTrashed()->updateOrCreate(['id' => $request->id], [
             'name' => $request->name,
             'guard_name' => 'web',
         ]);
@@ -69,7 +70,7 @@ class RoleController extends Controller
 
     public function show($id)
     {
-        $role = Role::find(Crypt::decrypt($id));
+        $role = SpatieRole::find(Crypt::decrypt($id));
         $permission = Permission::all();
 
         $permission = $permission->each(function ($item, $key) {

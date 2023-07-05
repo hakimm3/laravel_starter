@@ -6,7 +6,7 @@
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
-    <ul class="nav nav-treeview">
+    <ul class="nav nav-treeview {{ request()->is('cms/*') ? 'd-block' : '' }}">
         <li class="nav-item">
             <a href="{{ route('cms.site.index') }}" class="nav-link {{ Route::is('cms.site.index') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>

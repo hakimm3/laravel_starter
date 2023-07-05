@@ -61,7 +61,7 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
-        $user = User::updateOrCreate(
+        $user = User::withTrashed()->updateOrCreate(
             ['id' => $request->id],
             [
                 'name' => $request->name,

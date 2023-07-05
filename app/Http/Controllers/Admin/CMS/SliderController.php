@@ -53,11 +53,11 @@ class SliderController extends Controller
             ], 422);
         }
 
-        $image = Slider::find($request->id)->image ?? null;
+        $image = Slider::withTrashed()->find($request->id)->image ?? null;
         if ($request->image != 'undefined') {
             $image = uploadPhoto($request->image, 'slider');
         }
-        $slider = \App\Models\Slider::updateOrCreate(
+        $slider = \App\Models\Slider::withTrashed()->updateOrCreate(
             ['id' => $request->id],
             [
                 'title' => $request->title,
@@ -75,7 +75,7 @@ class SliderController extends Controller
 
     public function edit($id)
     {
-        $slider = \App\Models\Slider::find($id);
+        $slider = \App\Models\Slider::withTrashed()->find($id);
         return response()->json([
             'status' => 'success',
             'message' => 'Slider fetched successfully',

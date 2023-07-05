@@ -53,7 +53,7 @@
                     <textarea name="description" id="description" cols="30" rows="10" class="form-control"
                         placeholder="Description"></textarea>
                 </div>
-                <input type="hidden" name="id" id="id">
+                <input type="text" name="id" id="id">
             </form>
         @endslot
     </x-admin.modal-form-component>

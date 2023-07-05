@@ -42,7 +42,7 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request)
     {
-        Department::updateOrCreate(['id' => $request->id], [
+        Department::withTrashed()->updateOrCreate(['id' => $request->id], [
             'name' => $request->name,
             'code' => $request->code,
             'description' => $request->description

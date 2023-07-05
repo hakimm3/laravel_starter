@@ -6,7 +6,7 @@
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="nav nav-treeview">
+    <ul class="nav nav-treeview {{ request()->is('authorization/*') ? 'd-block' : '' }}">
       <li class="nav-item">
         <a href="{{ route('authorization.role.index') }}" class="nav-link {{ Route::is('authorization.role.index') ? 'active' : ''}}">
           <i class="far fa-circle nav-icon"></i>
