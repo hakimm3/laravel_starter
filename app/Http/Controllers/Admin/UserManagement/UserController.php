@@ -25,20 +25,18 @@ class UserController extends Controller
                 }
                 return $query->whereNotNull('deleted_at');
             })
-            ->withTrashed()->latest();
+            ->withTrashed()->orderBy('id', 'asc');
             return DataTables::eloquent($users)
                 ->addIndexColumn()
                 ->addColumn('department', function ($row) {
                     return $row->department->name ?? '-';
                 })
                 ->addColumn('roles', function ($row) {
-                    return '<span class="badge badge-secondary">' . $row->roles()->pluck('name')->implode(', ') . '</span>';
-                })
-                ->addColumn('photo', function ($row) {
-                    if ($row->photo) {
-                        return '<img src="' . asset('storage/user/' . $row->photo) . '" width="50px">';
+                  $roles = '';
+                    foreach ($row->roles as $role) {
+                        $roles .= '<span class="badge badge-secondary">' . $role->name . '</span> ';
                     }
-                    return '-';
+                    return $roles;
                 })
                 ->addColumn('status', function ($row) {
                     $status = $row->deleted_at ? 'Inactive' : 'Active';

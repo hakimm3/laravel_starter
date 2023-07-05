@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="{{ asset('asset_template/dist/css/adminlte.min.css') }}">
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="{{ asset('asset_template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+<!-- Toastr -->
+<link rel="stylesheet" href="{{ asset('asset_template/plugins/toastr/toastr.min.css') }}">
 {{-- csrf --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- pace --}}
@@ -39,6 +41,11 @@
 
     .nav-item>.nav-link.active {
         background-color: {{ App\Models\Setting::get('color_sidebar_brand') ?? '#007BFF' }} !important;
+        color: #fff;
+    }
+
+    .nav-treeview .nav-item>.nav-link.active {
+        background-color: #DBDDE0 !important;
         color: #fff;
     }
 </style>

@@ -11,7 +11,9 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus"></i> Create</button>
+                @endslot
+                @slot('filter')
                     <div class="row">
                         <div class="col-sm-5 col-md-3">
                             <div class="form-group row">
@@ -26,13 +28,13 @@
                             </div>
                         </div>
                     </div>
-                    @endslot
-                    @slot('columns')
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                    @endslot
+                @endslot
+                @slot('columns')
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                @endslot
             </x-admin.data-table-component>
         @endslot
     </x-admin.layout-component>

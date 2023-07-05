@@ -1,8 +1,9 @@
 <div class="card">
-    <div class="card-header">
+    <div class="card-header" style="border-top: 3px solid blue">
        {{ $header }}
     </div>
     <div class="card-body">
+        {{ $filter }}
         <table id="{{ $id }}" class="table table-bordered table-hover">
             <thead class="bg-primary bg-color-sidebar-brand">
                 <tr>

@@ -9,15 +9,11 @@
             <li class="breadcrumb-item active">Roles</li>
         @endslot
         @slot('content')
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus"></i> Create</button>
+                @endslot
+                @slot('filter')
                     <div class="row">
                         <div class="col-sm-5 col-md-3">
                             <div class="form-group row">
@@ -167,5 +163,20 @@
             table.ajax.url("{{ route('authorization.role.index') }}" + "?status=" + $(this).val()).load()
         });
     </script>
+
+    @if (session('success'))
+        <script>
+            $(document).ready(function() {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true,
+                });
+            });
+        </script>
+    @endif
 @endpush
 @include('admin.authorization.role.create')

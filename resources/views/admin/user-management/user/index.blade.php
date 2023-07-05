@@ -11,7 +11,18 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-1">
+                            <button class="btn btn-success my-2" onclick="create()"><i class="fa fa-plus"></i> Create</button>
+                        </div>
+                        <div class="col-sm-5 col-md-8"></div>
+                        <div class="col-sm-5 col-md-3 d-flex justify-content-end">
+                            <button class="btn bg-purple my-2 mr-2"><i class="fa fa-download"></i> Download Template</button>
+                            <button class="btn bg-orange my-2"><i class="fa fa-file-import"></i> Import</button>
+                        </div>
+                    </div>
+                @endslot
+                @slot('filter')
                     <div class="row">
                         <div class="col-sm-5 col-md-3">
                             <div class="form-group row">
@@ -32,7 +43,6 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Department</th>
-                    <th>Photo</th>
                     <th>Roles</th>
                     <th>Status</th>
                 @endslot
@@ -115,10 +125,6 @@
                 {
                     data: 'department',
                     name: 'department'
-                },
-                {
-                    data: 'photo',
-                    name: 'photo'
                 },
                 {
                     data: 'roles',
@@ -232,7 +238,7 @@
 
         // filter status
         $('#status').change(function() {
-           table.ajax.url("{{ route('user-management.users.index') }}?status=" + $(this).val()).load()
+            table.ajax.url("{{ route('user-management.users.index') }}?status=" + $(this).val()).load()
         })
     </script>
 @endpush

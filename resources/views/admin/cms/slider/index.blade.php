@@ -12,7 +12,9 @@
         @slot('content')
             <x-admin.data-table-component id="table">
                 @slot('header')
-                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus"></i> Create</button>
+                @endslot
+                @slot('filter')
                     <div class="row">
                         <div class="col-sm-5 col-md-3">
                             <div class="form-group row">
