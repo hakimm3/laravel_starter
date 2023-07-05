@@ -14,7 +14,7 @@
                 data: $('#form').serialize(),
                 success: function(data) {
                     $('#exampleModal').modal('hide')
-                    table.ajax.reload()
+                    table.ajax.reload(null, false)
                     Swal.fire({
                         title: 'Success!',
                         text: 'Data has been saved!',

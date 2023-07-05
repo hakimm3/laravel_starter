@@ -20,7 +20,7 @@
                                 <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
                                 <div class="col-sm-5 col-md-8">
                                     <select name="status" id="status" class="form-control">
-                                        <option value="All">All</option>
+                                        <option value="All" selected>All</option>
                                         <option value="Active">Active</option>
                                         <option value="Inctive">Inactive</option>
                                     </select>
@@ -69,7 +69,13 @@
             responsive: true,
             autoWidth: false,
             serverSide: true,
-            ajax: '',
+            stateSave: true,
+            ajax: {
+                url: '',
+                data: function (d) {
+                    d.status        = $('#status').val();
+                }
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -133,7 +139,7 @@
                                     timer: 1500,
                                     timerProgressBar: true,
                                 });
-                                table.ajax.reload()
+                                table.ajax.reload(false)
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 alert('Error deleting data');
@@ -181,7 +187,7 @@
     <script>
         // filter 
         $('#status').on('change', function() {
-            table.ajax.url("{{ route('user-management.department.index') }}?status=" + $(this).val()).load();
+            table.ajax.url("{{ route('user-management.department.index') }}?status=" + $(this).val()).load(false);
         });
     </script>
 @endpush
