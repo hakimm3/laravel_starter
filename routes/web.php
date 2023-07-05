@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('users',  App\Http\Controllers\Admin\UserManagement\UserController::class)->except('show', 'update', 'create');
         Route::get('users-restore/{id}', [App\Http\Controllers\Admin\UserManagement\UserController::class, 'restore'])->name('users.restore');
+        Route::post('users-import', [App\Http\Controllers\Admin\UserManagement\UserController::class, 'import'])->name('users.import');
     });
 
     Route::prefix('authorization')->as('authorization.')->group(function () {
