@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SiteRequest;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use Helper;
 
 class SiteController extends Controller
 {
     public function index()
     {
-        $setting = Setting::all();
+        $setting = Setting::pluck('value', 'key');
         return view('admin.cms.site', compact('setting'));
     }
 
@@ -24,12 +25,12 @@ class SiteController extends Controller
         Setting::where('key', 'site_description')->update(['value' => $request->site_description]);
 
         if($request->hasFile('logo_small')){
-            $logo_small = uploadPhoto($request->file('logo_small'), 'setting');
+            $logo_small = Helper::uploadPhoto($request->file('logo_small'), 'setting');
             Setting::where('key', 'logo_small')->update(['value' => $logo_small]);
         }
 
         if($request->hasFile('logo_large')){
-            $logo_large = uploadPhoto($request->file('logo_large'), 'setting');
+            $logo_large = Helper::uploadPhoto($request->file('logo_large'), 'setting');
             Setting::where('key', 'logo_large')->update(['value' => $logo_large]);
         }
 

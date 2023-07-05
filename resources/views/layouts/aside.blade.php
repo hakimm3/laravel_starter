@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link text-light">
-        <span class="brand-text font-weight-light"><b>{{ App\Models\Setting::get('site_name') }}</b></span>
+        <span class="brand-text font-weight-light"><b>{{ $setting['site_name'] }}</b></span>
     </a>
 
     <!-- Sidebar -->

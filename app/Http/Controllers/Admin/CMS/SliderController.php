@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\CMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
+use Helper;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -55,7 +56,7 @@ class SliderController extends Controller
 
         $image = Slider::withTrashed()->find($request->id)->image ?? null;
         if ($request->image != 'undefined') {
-            $image = uploadPhoto($request->image, 'slider');
+            $image = Helper::uploadPhoto($request->image, 'slider');
         }
         $slider = \App\Models\Slider::withTrashed()->updateOrCreate(
             ['id' => $request->id],

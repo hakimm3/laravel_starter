@@ -12,7 +12,8 @@ class ThemeController extends Controller
 {
     public function index()
     {
-        return view('admin.cms.theme');
+        $setting = Setting::pluck('value', 'key');
+        return view('admin.cms.theme', compact('setting'));
     }
 
     public function store(ThemeRequest $request){

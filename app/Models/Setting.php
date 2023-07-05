@@ -11,14 +11,6 @@ class Setting extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = ['id'];
 
-    public static function get($key){
-        $setting = self::where('key', $key)->first();
-        if($setting){
-            return $setting->value;
-        }
-        return null;
-    }
-
     public static function boot()
     {
         parent::boot();

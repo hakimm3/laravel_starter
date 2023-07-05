@@ -20,35 +20,35 @@
                             <label class="col-sm-2 col-form-label">Brand Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="brand_name" placeholder="Brand Name"
-                                    value="{{ App\Models\Setting::get('brand_name') }}">
+                                    value="{{ $setting['brand_name'] }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">App Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="site_name" placeholder="App Name"
-                                    value="{{ App\Models\Setting::get('site_name') }}">
+                                    value="{{ $setting['site_name'] }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Site Description</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="site_description"
-                                    placeholder="Site Description" value="{{ App\Models\Setting::get('site_description') }}">
+                                    placeholder="Site Description" value="{{ $setting['site_description'] }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Phone</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" name="brand_phone" placeholder="Phone"
-                                    value="{{ App\Models\Setting::get('brand_phone') }}">
+                                    value="{{ $setting['brand_phone'] }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Address</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="brand_address" placeholder="Brand Address"
-                                    value="{{ App\Models\Setting::get('brand_address') }}">
+                                    value="{{ $setting['brand_address'] }}">
                             </div>
                         </div>
                         <div class="form-group row">

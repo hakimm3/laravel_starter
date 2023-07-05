@@ -7,6 +7,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Models\User;
+use Helper;
 
 class ProfileController extends Controller
 {
@@ -74,7 +75,7 @@ class ProfileController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $photoName = uploadPhoto($request->photo, 'user');
+        $photoName = Helper::uploadPhoto($request->photo, 'user');
         $user = User::findOrFail(auth()->id());
         $user->photo = $photoName;
         $user->save();

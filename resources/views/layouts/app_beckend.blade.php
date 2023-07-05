@@ -6,6 +6,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html lang="en">
 
 <head>
+    @php
+        $setting = \App\Models\Setting::pluck('value', 'key');
+    @endphp
     @include('layouts.head')
 </head>
 
