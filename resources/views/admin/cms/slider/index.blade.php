@@ -21,7 +21,7 @@
                                 <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
                                 <div class="col-sm-5 col-md-8">
                                     <select name="status" id="status" class="form-control">
-                                        <option value="All">All</option>
+                                        <option value="All" selected>All</option>
                                         <option value="Active">Active</option>
                                         <option value="Inctive">Inactive</option>
                                     </select>
@@ -72,7 +72,13 @@
             responsive: true,
             autoWidth: false,
             serverSide: true,
-            ajax: '',
+            siteSave: true,
+            ajax: {
+                url: "",
+                data: function(data) {
+                    data.status = $('#status').val();
+                }
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -123,43 +129,6 @@
                         data: {
                             _token: "{{ csrf_token() }}"
                         },
-                        success: function(response) {
-                            $('#table').DataTable().ajax.reload();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Success',
-                                text: response.message,
-                                showConfirmButton: false,
-                                timer: 1500,
-                                timerProgressBar: true,
-                            });
-                        },
-                        error: function(data) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: data.message,
-                            });
-                        }
-                    });
-                }
-            })
-        }
-
-        function restore(id) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to restore this data!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#556ee6',
-                cancelButtonColor: '#f46a6a',
-                confirmButtonText: 'Yes, restore it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('cms.slider.restore', ':id') }}".replace(':id', id),
-                        type: "GET",
                         success: function(response) {
                             $('#table').DataTable().ajax.reload();
                             Swal.fire({

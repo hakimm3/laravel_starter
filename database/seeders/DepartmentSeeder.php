@@ -13,7 +13,7 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         $faker = \Faker\Factory::create();
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             \App\Models\Department::create([
                 'name' => $faker->name,
                 'code' => $faker->randomNumber(5) . $i,

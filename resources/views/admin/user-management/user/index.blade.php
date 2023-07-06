@@ -20,7 +20,7 @@
                                 <label for="status" class="col-sm-2 col-md-4 col-form-label">Status</label>
                                 <div class="col-sm-5 col-md-8">
                                     <select name="status" id="status" class="form-control">
-                                        <option value="All">All</option>
+                                        <option value="All" selected>All</option>
                                         <option value="Active">Active</option>
                                         <option value="Inctive">Inactive</option>
                                     </select>
@@ -101,7 +101,13 @@
             responsive: true,
             autoWidth: false,
             serverSide: true,
-            ajax: '',
+            stateSave: true,
+            ajax: {
+                url: '',
+                data: function(d) {
+                    d.status = $('#status').val();
+                }
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -168,7 +174,7 @@
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: "Data Succesfully Deleted",
+                                    title: data.message,
                                     showConfirmButton: false,
                                     timer: 1500,
                                     timerProgressBar: true,
@@ -177,41 +183,6 @@
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 alert('Error deleting data');
-                            }
-                        });
-                    }
-                });
-        }
-
-        function restore(id) {
-            Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    dangerMode: true,
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        var url = "{{ route('user-management.users.restore', ':id') }}";
-                        url = url.replace(':id', id);
-
-                        $.ajax({
-                            url: url,
-                            type: "GET",
-                            success: function(data) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: "Data Succesfully Restored",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    timerProgressBar: true,
-                                });
-                                table.ajax.reload()
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                alert('Error restoring data');
                             }
                         });
                     }

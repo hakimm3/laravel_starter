@@ -60,7 +60,13 @@
             responsive: true,
             autoWidth: false,
             serverSide: true,
-            ajax: '',
+            stateSave: true,
+            ajax: {
+                url: '',
+                data: function(d) {
+                    d.status = $('#status').val();
+                }
+            },
             columns: [{
                     data: 'DT_RowIndex',
                     orderable: false,
@@ -113,7 +119,7 @@
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: "Data Succesfully Deleted",
+                                    title: data.message,
                                     showConfirmButton: false,
                                     timer: 1500,
                                     timerProgressBar: true,
@@ -127,61 +133,11 @@
                     }
                 });
         }
-
-        function restore(id) {
-            Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    dangerMode: true,
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        var url = "{{ route('authorization.role.restore', ':id') }}";
-                        url = url.replace(':id', id);
-
-                        $.ajax({
-                            url: url,
-                            type: "GET",
-                            success: function(data) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: "Data Succesfully Restored",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    timerProgressBar: true,
-                                });
-                                table.ajax.reload()
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                alert('Error restoring data');
-                            }
-                        });
-                    }
-                });
-        }
     </script>
     <script>
         $('#status').change(function() {
             table.ajax.url("{{ route('authorization.role.index') }}" + "?status=" + $(this).val()).load()
         });
     </script>
-
-    @if (session('success'))
-        <script>
-            $(document).ready(function() {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: "{{ session('success') }}",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                });
-            });
-        </script>
-    @endif
 @endpush
 @include('admin.authorization.role.create')

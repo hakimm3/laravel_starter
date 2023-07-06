@@ -26,5 +26,17 @@ class UserSeeder extends Seeder
             $user = \App\Models\User::create($value);
             $user->syncRoles('admin');
         }
+
+        $faker = \Faker\Factory::create('id_ID');
+        for($i = 0; $i<100; $i++){
+            $user = \App\Models\User::create([
+                'department_id' => $faker->numberBetween(1, 100),
+                'name' => $faker->name,
+                'username' => $faker->userName,
+                'email' => $faker->email,
+                'password' => bcrypt('password'),
+            ]);
+            $user->syncRoles('user');
+        }
     }
 }

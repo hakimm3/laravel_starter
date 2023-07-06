@@ -139,7 +139,7 @@
                                 Swal.fire({
                                     position: 'center',
                                     icon: 'success',
-                                    title: "Data Succesfully Deleted",
+                                    title: data.message,
                                     showConfirmButton: false,
                                     timer: 1500,
                                     timerProgressBar: true,
@@ -148,41 +148,6 @@
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
                                 alert('Error deleting data');
-                            }
-                        });
-                    }
-                });
-        }
-
-        function restore(id) {
-            Swal.fire({
-                    title: "Are you sure?",
-                    text: "You want to restore this data?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    dangerMode: true,
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        var url = "{{ route('user-management.department.restore', ':id') }}";
-                        url = url.replace(':id', id);
-
-                        $.ajax({
-                            url: url,
-                            type: "GET",
-                            success: function(data) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: "Data Succesfully Restored",
-                                    showConfirmButton: false,
-                                    timer: 1500,
-                                    timerProgressBar: true,
-                                });
-                                table.ajax.reload()
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                alert('Error restoring data');
                             }
                         });
                     }

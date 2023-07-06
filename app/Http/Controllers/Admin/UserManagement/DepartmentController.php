@@ -59,19 +59,13 @@ class DepartmentController extends Controller
 
     public function destroy($id)
     {
-        $department = Department::find($id);
-        $department->delete();
-        return response()->json([
-            'success' => true,
-        ], 200);
-    }
-
-    public function restore($id)
-    {
         $department = Department::withTrashed()->find($id);
-        $department->restore();
+        $department->trashed() ? $department->restore() : $department->delete();
+        $message = $department->trashed() ? 'Department delete successfully' : 'Department restore successfully';
+
         return response()->json([
             'success' => true,
+            'message' => $message
         ], 200);
     }
 }

@@ -17,23 +17,21 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $users = User::with('department')
-            ->when($request->status, function ($query) use ($request) {
-                if ($request->status == 'All') {
-                    return $query->withTrashed();
-                }
-                if ($request->status == 'Active') {
-                    return $query->whereNull('deleted_at');
-                }
-                return $query->whereNotNull('deleted_at');
-            })
-            ->withTrashed()->orderBy('id', 'asc');
+                ->when($request->status !== 'All', function ($query) use ($request) {
+                    if ($request->status === 'Active') {
+                        return $query->whereNull('deleted_at');
+                    }
+                    return $query->whereNotNull('deleted_at');
+                })
+                ->withTrashed()
+                ->orderBy('id', 'asc');
             return DataTables::eloquent($users)
                 ->addIndexColumn()
                 ->addColumn('department', function ($row) {
                     return $row->department->name ?? '-';
                 })
                 ->addColumn('roles', function ($row) {
-                  $roles = '';
+                    $roles = '';
                     foreach ($row->roles as $role) {
                         $roles .= '<span class="badge badge-secondary">' . $role->name . '</span> ';
                     }
@@ -88,31 +86,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::withTrashed()->find($id);
-        
-        if($user->trashed()) {
+        $message = 'User deleted successfully';
+
+        if ($user->trashed()) {
             $user->restore();
+            $message = 'User restored successfully';
         } else {
             $user->delete();
         }
-        
+
         return response()->json([
             'success' => true,
-            'message' => 'User deleted successfully'
+            'message' => $message
         ], 200);
     }
 
-    public function restore($id)
+    public function import(Request $request)
     {
-        $user = User::withTrashed()->find($id);
-        $user->restore();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'User restored successfully'
-        ], 200);
-    }
-
-    public function import(Request $request){
         $request->validate([
             'file' => 'required|mimes:xls,xlsx'
         ]);

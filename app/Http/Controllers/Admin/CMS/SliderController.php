@@ -14,14 +14,11 @@ class SliderController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $sliders = Slider::when($request->status, function ($q) use ($request) {
-                if ($request->status == 'All') {
-                    return $q->withTrashed();
+            $sliders = Slider::when($request->status !== 'All', function ($query) use ($request) {
+                if ($request->status === 'Active') {
+                    return $query->whereNull('deleted_at');
                 }
-                if ($request->status == 'Active') {
-                    return $q->whereNull('deleted_at');
-                }
-                return $q->whereNotNull('deleted_at');
+                return $query->whereNotNull('deleted_at');
             })
                 ->withTrashed()
                 ->latest();
@@ -86,21 +83,18 @@ class SliderController extends Controller
 
     public function destroy($id)
     {
-        $slider = \App\Models\Slider::find($id);
-        $slider->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Slider deleted successfully',
-        ], 200);
-    }
-
-    public function restore($id)
-    {
         $slider = \App\Models\Slider::withTrashed()->find($id);
-        $slider->restore();
+        $message = 'Slider deleted successfully';
+        if ($slider->trashed()) {
+            $slider->restore();
+            $message = 'Slider restored successfully';
+        } else {
+            $slider->delete();
+        }
+
         return response()->json([
             'status' => 'success',
-            'message' => 'Slider restored successfully',
+            'message' => $message,
         ], 200);
     }
 }

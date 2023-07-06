@@ -29,7 +29,6 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('user-management')->as('user-management.')->group(function () {
         Route::resource('department', App\Http\Controllers\Admin\UserManagement\DepartmentController::class)->except('show', 'update', 'create');
-        Route::get('department-restore/{id}', [App\Http\Controllers\Admin\UserManagement\DepartmentController::class, 'restore'])->name('department.restore');
 
         Route::resource('users',  App\Http\Controllers\Admin\UserManagement\UserController::class)->except('show', 'update', 'create');
         Route::get('users-restore/{id}', [App\Http\Controllers\Admin\UserManagement\UserController::class, 'restore'])->name('users.restore');

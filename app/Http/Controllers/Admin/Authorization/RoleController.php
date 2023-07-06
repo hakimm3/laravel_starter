@@ -15,15 +15,12 @@ class RoleController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Role::when($request->status, function ($query) use ($request) {
-                    if ($request->status == 'All') {
-                        return $query->withTrashed();
-                    }
-                    if ($request->status == 'Active') {
-                        return $query->whereNull('deleted_at');
-                    }
-                    return $query->whereNotNull('deleted_at');
-                })
+            $data = Role::when($request->status !== 'All', function ($query) use ($request) {
+                if ($request->status === 'Active') {
+                    return $query->whereNull('deleted_at');
+                }
+                return $query->whereNotNull('deleted_at');
+            })
                 ->withTrashed()
                 ->latest();
 
@@ -45,7 +42,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:roles,name,'. $request->id . ',id'
+            'name' => 'required|unique:roles,name,' . $request->id . ',id'
         ]);
 
         Role::withTrashed()->updateOrCreate(['id' => $request->id], [
@@ -86,23 +83,14 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-        $role = Role::find($id);
-        $role->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Role deleted successfully'
-        ], 200);
-    }
-
-    public function restore($id)
-    {
         $role = Role::withTrashed()->find($id);
-        $role->restore();
+        $role->trashed() ? $role->restore() : $role->delete();
+
+        $message = $role->trashed() ? 'Role deleted successfully' : 'Role restored successfully';
 
         return response()->json([
             'success' => true,
-            'message' => 'Role restored successfully'
+            'message' => $message
         ], 200);
     }
 }

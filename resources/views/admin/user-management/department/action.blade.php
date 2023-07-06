@@ -7,7 +7,7 @@
     </button>
     
 @else
-    <button class="btn btn-sm btn-outline-warning" onclick="restore({{ $id }})">
+    <button class="btn btn-sm btn-outline-warning" onclick="destroy({{ $id }})">
         <i class="fa fa-recycle"></i>
     </button>
 @endif
