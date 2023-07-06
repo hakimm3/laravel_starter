@@ -15,23 +15,17 @@ class DepartmentController extends Controller
     {
         if ($request->ajax()) {
             $departments = Department::withTrashed()
-                ->when($request->status, function ($query) use ($request) {
-                    if ($request->status == 'All') {
-                        return $query->withTrashed();
-                    }
-                    if ($request->status == 'Active') {
+                ->when($request->status !== 'All', function ($query) use ($request) {
+                    if ($request->status === 'Active') {
                         return $query->whereNull('deleted_at');
                     }
                     return $query->whereNotNull('deleted_at');
                 })
                 ->latest();
+
             return DataTables::eloquent($departments)
                 ->addIndexColumn()
-                ->addColumn('status', function ($row) {
-                    $status = $row->deleted_at ? 'Inactive' : 'Active';
-                    $color = $row->deleted_at ? 'danger' : 'success';
-                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
-                })
+                ->addColumn('status', 'admin._status')
                 ->addColumn('action', 'admin.user-management.department.action')
                 ->rawColumns(['action', 'status'])
                 ->make(true);

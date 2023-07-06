@@ -39,11 +39,7 @@ class UserController extends Controller
                     }
                     return $roles;
                 })
-                ->addColumn('status', function ($row) {
-                    $status = $row->deleted_at ? 'Inactive' : 'Active';
-                    $color = $row->deleted_at ? 'danger' : 'success';
-                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
-                })
+                ->addColumn('status', 'admin._status')
                 ->addColumn('action', 'admin.user-management.user.action')
                 ->rawColumns(['action', 'roles', 'photo', 'status'])
                 ->make(true);
@@ -91,9 +87,14 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-
+        $user = User::withTrashed()->find($id);
+        
+        if($user->trashed()) {
+            $user->restore();
+        } else {
+            $user->delete();
+        }
+        
         return response()->json([
             'success' => true,
             'message' => 'User deleted successfully'

@@ -33,7 +33,7 @@
                             @csrf
                             @foreach ($permission as $key => $perm)
                                 <table class="table table-striped">
-                                    <thead style="background-color: #4b84e0; color: white;">
+                                    <thead class="main-header">
                                         <th class="text-uppercase" colspan="{{ $perm->count() }}">{{ $key }}</th>
                                     </thead>
                                     <tbody>
@@ -42,9 +42,8 @@
                                                 <div class="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="permissions[]" value="{{ $action->id }}"
-                                                            @if (in_array(
-                                                                    $action->id,
-                                                                    $role->permissions()->pluck('id')->toArray())) checked @endif>
+                                                            @if($role->hasPermissionTo($action['action'].' '.$key)) checked @endif
+                                                        >
                                                         {{ $action['action'] }}
                                                     </label>
                                                 </div>

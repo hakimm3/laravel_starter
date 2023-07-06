@@ -25,6 +25,7 @@
 
     .main-header {
         background-color: {{ $setting['color_sidebar_brand'] ?? '#007BFF' }};
+        color: white;
     }
 
     .outline-main-header {
