@@ -15,7 +15,7 @@
 {{-- csrf --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 {{-- pace --}}
-<link rel="stylesheet" href="{{ asset('asset_template/plugins/pace-progress/themes/yellow/pace-theme-flat-top.css') }}">
+<link rel="stylesheet" href="{{ asset('asset_template/plugins/pace-progress/themes/yellow/pace-theme-flash.css') }}">
 {{-- datatable --}}
 
 <style>
