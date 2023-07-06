@@ -1,11 +1,11 @@
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('home') }}" class="brand-link text-light">
-        <span class="brand-text font-weight-light"><b>{{ $setting['site_name'] }}</b></span>
+    <a href="{{ route('home') }}" class="brand-link text-light text-center">
+        <span class="brand-text"><b>{{ $setting['site_name'] }}</b></span>
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar bg-white">
+    <div class="sidebar">
         <div class="row">
             <div class="col-md-12">
                 <div class="image text-center mt-3">

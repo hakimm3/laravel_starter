@@ -20,11 +20,15 @@
 
 <style>
     .main-sidebar {
-        background-color: {{ $setting['color_sidebar'] ?? '#007BFF' }};
+        background-color: {{ $setting['color_sidebar'] ?? 'white' }};
     }
 
     .main-header {
         background-color: {{ $setting['color_sidebar_brand'] ?? '#007BFF' }};
+    }
+
+    .outline-main-header {
+        border-top: 3px solid {{ $setting['color_sidebar_brand'] ?? '#007BFF' }};
     }
 
     .brand-link {

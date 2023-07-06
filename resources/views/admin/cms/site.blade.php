@@ -12,10 +12,11 @@
         @endslot
 
         @slot('content')
-            <div class="card card-info">
-                <!-- form start -->
-                <form class="form-horizontal">
-                    <div class="card-body">
+            <x-admin.box-component>
+                @slot('header')
+                @endslot
+                @slot('body')
+                    <form id="form">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Brand Name</label>
                             <div class="col-sm-10">
@@ -33,8 +34,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Site Description</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="site_description"
-                                    placeholder="Site Description" value="{{ $setting['site_description'] }}">
+                                <input type="text" class="form-control" name="site_description" placeholder="Site Description"
+                                    value="{{ $setting['site_description'] }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -54,23 +55,23 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Logo Small</label>
                             <div class="col-sm-10">
+                                <img src="{{ asset('storage/setting/'. $setting['logo_small']) }}" class="rounded img-fluid mb-2" width="200px" alt="Logo Small" srcset="">
                                 <input type="file" class="form-control" name="logo_small" placeholder="Logo Small">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Logo Large</label>
                             <div class="col-sm-10">
+                                <img src="{{ asset('storage/setting/'. $setting['logo_large']) }}" class="rounded img-fluid mb-2" width="200px" alt="Logo Large" srcset="">
                                 <input type="file" class="form-control" name="logo_large" placeholder="Logo Large">
                             </div>
                         </div>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-success">Save</button>
-                    </div>
-                    <!-- /.card-footer -->
-                </form>
-            </div>
+                    </form>
+                @endslot
+                @slot('footer')
+                    <button type="submit" id="submit" class="btn btn-success">Save</button>
+                @endslot
+            </x-admin.box-component>
         @endslot
     </x-admin.layout-component>
 @endsection
@@ -78,9 +79,9 @@
 @push('js')
     <script>
         $(function() {
-            $('form').submit(function(e) {
+            $('#submit').on('click', function(e) {
                 e.preventDefault();
-                let formData = new FormData(this);
+                let formData = new FormData($('#form')[0]);
                 $.ajax({
                     url: "{{ route('cms.site.store') }}",
                     type: "POST",
@@ -98,7 +99,7 @@
                             location.reload();
                         })
                     },
-                    error: function(data){
+                    error: function(data) {
                         let error_message = '<ul>'
                         $.each(data.responseJSON.errors, function(key, value) {
                             error_message += '<li>' + value + '</li>'

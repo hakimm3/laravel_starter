@@ -1,4 +1,4 @@
-@extends('layouts.app_beckend')
+@extends('layouts.app')
 @section('content')
     <x-admin.layout-component>
         @slot('pageHeader')
@@ -10,11 +10,11 @@
             <li class="breadcrumb-item active">Sliders</li>
         @endslot
         @slot('content')
-            <x-admin.data-table-component id="table">
+            <x-admin.box-component>
                 @slot('header')
                     <button class="btn btn-success my-2 btn-md" onclick="create()"><i class="fa fa-plus"></i> Create</button>
                 @endslot
-                @slot('filter')
+                @slot('body')
                     <div class="row">
                         <div class="col-sm-5 col-md-3">
                             <div class="form-group row">
@@ -29,14 +29,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <x-admin.data-table-component id="table">
+                        @slot('columns')
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        @endslot
+                    </x-admin.data-table-component>
                 @endslot
-                @slot('columns')
-                    <th>Image</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Status</th>
+                @slot('footer')
                 @endslot
-            </x-admin.data-table-component>
+            </x-admin.box-component>
         @endslot
     </x-admin.layout-component>
     <x-admin.modal-form-component>

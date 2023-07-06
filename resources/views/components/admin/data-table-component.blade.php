@@ -1,21 +1,12 @@
-<div class="card">
-    <div class="card-header" style="border-top: 3px solid blue">
-       {{ $header }}
-    </div>
-    <div class="card-body">
-        {{ $filter }}
-        <table id="{{ $id }}" class="table table-bordered table-hover">
-            <thead class="bg-primary bg-color-sidebar-brand">
-                <tr>
-                    <th style="width: 5%">No</th>
-                    {{ $columns }}
-                    <th style="width: 10%" class="text-center">Action</th>
-                </tr>
-            </thead>
-        </table>
-    </div>
-</div>
-
+<table id="{{ $id }}" class="table table-bordered table-hover">
+    <thead class="bg-primary bg-color-sidebar-brand">
+        <tr>
+            <th style="width: 5%">No</th>
+            {{ $columns }}
+            <th style="width: 10%" class="text-center">Action</th>
+        </tr>
+    </thead>
+</table>
 @push('css')
     <link rel="stylesheet" href="{{ asset('asset_template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet"
