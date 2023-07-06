@@ -26,11 +26,7 @@ class RoleController extends Controller
 
             return DataTables::eloquent($data)
                 ->addIndexColumn()
-                ->addColumn('status', function ($row) {
-                    $status = $row->deleted_at ? 'Inactive' : 'Active';
-                    $color = $row->deleted_at ? 'danger' : 'success';
-                    return '<span class="badge badge-' . $color . '">' . $status . '</span>';
-                })
+                ->addColumn('status', 'admin._status')
                 ->addColumn('action', 'admin.authorization.role.action')
                 ->rawColumns(['action', 'status'])
                 ->make(true);

@@ -19,4 +19,5 @@
         }
     });
 </script>
+@include('layouts.action')
 @stack('js')
