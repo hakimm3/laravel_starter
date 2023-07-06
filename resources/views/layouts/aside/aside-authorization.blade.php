@@ -8,7 +8,7 @@
     </a>
     <ul class="nav nav-treeview {{ request()->is('authorization/*') ? 'd-block' : '' }}">
       <li class="nav-item">
-        <a href="{{ route('authorization.role.index') }}" class="nav-link {{ Route::is('authorization.role.index') ? 'active' : ''}}">
+        <a href="{{ route('authorization.role.index') }}" class="nav-link {{ request()->is('authorization/role/*') ? 'active' : ''}}">
           <i class="far fa-circle nav-icon"></i>
           <p>Role</p>
         </a>

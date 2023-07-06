@@ -47,7 +47,7 @@ class SettingSeeder extends Seeder
             ],
             [
                 'key'   => 'color_sidebar',
-                'value' => '#F4F6F9'
+                'value' => 'white'
             ],
             [
                 'key'   => 'color_sidebar_brand',
