@@ -25,7 +25,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
     {
         Artisan::call('cache:clear');
 
-        $department = \App\Models\Department::where('code', $row['department_code'])->first();
+        $department = \App\Models\Department::where('name', $row['department_name'])->first();
         $user = User::create([
             'name' => $row['name'],
             'username' => $row['username'],
@@ -44,7 +44,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
     public function rules(): array
     {
         return [
-            'department_code' => 'required|exists:departments,code',
+            'department_name' => 'required|exists:departments,name',
             'name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email',
