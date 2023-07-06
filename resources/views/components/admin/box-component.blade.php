@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header outline-main-header">
+    <div class="card-header outline-main-header py-0">
         {{ $header }}
     </div>
     <div class="card-body">

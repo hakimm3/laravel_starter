@@ -1,4 +1,4 @@
-<table id="{{ $id }}" class="table table-bordered table-hover">
+<table id="{{ $id }}" class="table table-bordered table-hover overflow-scroll">
     <thead class="bg-primary bg-color-sidebar-brand">
         <tr>
             <th style="width: 5%">No</th>

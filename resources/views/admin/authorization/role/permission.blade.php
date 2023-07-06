@@ -15,13 +15,13 @@
                 <x-admin.box-component>
                     @slot('header')
                         @if (session('success'))
-                            <div class="alert alert-success alert-dismissible">
+                            <div class="alert alert-success alert-dismissible my-2">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 <h5><i class="icon fas fa-check"></i> Alert!</h5>
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <div class="form-group">
+                        <div class="form-group mt-2">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="checkAll"> Check All
