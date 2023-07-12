@@ -100,17 +100,4 @@ class UserController extends Controller
             'message' => $message
         ], 200);
     }
-
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file' => 'required|mimes:xls,xlsx'
-        ]);
-
-        Excel::import(new \App\Imports\UsersImport, $request->file('file'));
-        return response()->json([
-            'success' => true,
-            'message' => 'Users imported successfully'
-        ], 200);
-    }
 }
