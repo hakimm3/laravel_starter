@@ -34,7 +34,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+            <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu"
                 data-accordion="false">
 
                 <li class="nav-item">
@@ -60,10 +60,13 @@
        with font-awesome or any other icon font library -->
 
                 {{-- cms --}}
+                @role('Super User')
+                <li class="nav-header">ADMINISTRATOR</li>
                 @include('layouts.aside.aside-cms')
                 @include('layouts.aside.aside-authorization')
                 @include('layouts.aside.aside-user_management')
                 @include('layouts.aside.aside-securitty')
+                @endrole
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

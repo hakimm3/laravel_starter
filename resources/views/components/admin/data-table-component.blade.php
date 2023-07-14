@@ -1,5 +1,5 @@
 <table id="{{ $id }}" class="table table-bordered table-hover overflow-scroll">
-    <thead class="bg-primary bg-color-sidebar-brand">
+    <thead class="bg-secondary">
         <tr>
             <th style="width: 5%">No</th>
             {{ $columns }}

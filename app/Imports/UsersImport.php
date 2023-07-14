@@ -30,7 +30,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
             'name' => $row['name'],
             'username' => $row['username'],
             'email' => $row['email'],
-            'department_id' => $department->id,
+            'department_id' => $department?->id,
         ]);
         $user->assignRole($row['role']);
         return $user;
@@ -44,7 +44,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmpty
     public function rules(): array
     {
         return [
-            'department_name' => 'required|exists:departments,name',
+            'department_name' => 'nullable|exists:departments,name',
             'name' => 'required',
             'username' => 'required|unique:users,username',
             'email' => 'required|unique:users,email',

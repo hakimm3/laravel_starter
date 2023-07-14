@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item {{ request()->is('user-management/*') ? 'menu-is-opening menu-open' : '' }}">
     <a href="#" class="nav-link  {{ request()->is('user-management/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-cog"></i>
         <p>
@@ -6,17 +6,17 @@
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
-    <ul class="nav nav-treeview {{ request()->is('user-management/*') ? 'd-block' : '' }}">
+    <ul class="nav nav-treeview">
         <li class="nav-item">
             <a href="{{ route('user-management.department.index') }}"
-                class="nav-link {{ Route::is('user-management.department.index') ? 'active' : '' }}">
+                class="nav-link {{ request()->is('user-management/department') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Department</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('user-management.users.index') }}"
-                class="nav-link {{ Route::is('user-management.users.index') ? 'active' : '' }}">
+                class="nav-link {{ request()->is('user-management/users') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>User</p>
             </a>

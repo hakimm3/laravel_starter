@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item {{ request()->is('authorization/*') ? 'menu-is-opening menu-open' : '' }}">
     <a href="#" class="nav-link {{ request()->is('authorization/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-key"></i>
       <p>
@@ -6,7 +6,7 @@
         <i class="right fas fa-angle-left"></i>
       </p>
     </a>
-    <ul class="nav nav-treeview {{ request()->is('authorization/*') ? 'd-block' : '' }}">
+    <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ route('authorization.role.index') }}" class="nav-link {{ request()->is('authorization/role*') ? 'active' : ''}}">
           <i class="far fa-circle nav-icon"></i>
@@ -14,7 +14,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('authorization.permission.index') }}" class="nav-link {{ Route::is('authorization.permission.index') ? 'active' : '' }}">
+        <a href="{{ route('authorization.permission.index') }}" class="nav-link {{ request()->is('authorization/permission*') ? 'active' : '' }}">
           <i class="far fa-circle nav-icon"></i>
           <p>Permission</p>
         </a>

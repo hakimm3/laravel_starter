@@ -1,6 +1,6 @@
 @if ($id != 1)
     @if ($deleted_at == null)
-        <button class="btn btn-sm btn-outline-danger" onclick="destroy({{ $id }})">
+        <button class="btn btn-sm btn-outline-danger" onclick="destroy('{{ route('user-management.users.destroy', $id) }}')">
             <i class="fa fa-trash"></i>
         </button>
         <button class="btn btn-sm btn-outline-info" title="Edit" onclick="edit({{ $id }})">

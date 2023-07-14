@@ -1,4 +1,4 @@
-@extends('layouts.app_beckend')
+@extends('layouts.app')
 
 @section('content')
     <x-admin.layout-component>

@@ -56,14 +56,27 @@
                     });
                 },
                 error: function(data) {
-                    let error_message = '<ul>';
-                    $.each(data.responseJSON.errors, function(key, value) {
-                        error_message += '<li>' + value + '</li>';
-                    });
-                    error_message += '</ul>';
+                    // let error_message = '<ul>';
+                    // $.each(data.responseJSON.errors, function(key, value) {
+                    //     error_message += '<li>' + value + '</li>';
+                    // });
+                    // error_message += '</ul>';
+                    console.log(data.responseJSON.errors)
+
+                    var error_message = "";
+                    var title = "";
+                    if(data.responseJSON.errors) {
+                        title = "Validation Error";
+                        $.each( data.responseJSON.errors, function( key, value ) {
+                            error_message +="<li>"+value+"</li>";
+                        });
+                    } else {
+                        title = "Server Error";
+                        error_message = "Error Message: "+data.responseJSON.message
+                    }
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
+                        title: title,
                         html: error_message,
                     });
                 }

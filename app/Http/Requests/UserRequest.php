@@ -25,7 +25,7 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'username' => 'required|string|max:255|unique:users,username,' . $this->id,
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
-            'department_id' => 'required|exists:departments,id',
+            'department_id' => 'nullable|exists:departments,id',
             'roles' => 'required'
         ];
     }

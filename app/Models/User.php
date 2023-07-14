@@ -48,7 +48,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function department(){
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($model) {
+            $model->password = bcrypt('password');
+        });
+    }
+
+    public function department()
+    {
         return $this->belongsTo(Department::class);
     }
 

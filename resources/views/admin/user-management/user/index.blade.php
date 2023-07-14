@@ -102,5 +102,10 @@
     <link rel="stylesheet" href="{{ asset('asset_template/plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('asset_template/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endpush
-@include('admin.user-management.user.scripts')
+@push('js')
+    <x-script.destroy-component/>
+    <x-script.store-component/>
+    @include('admin.user-management.user.scripts')
+@endpush
+
 @include('admin.user-management.user.import')

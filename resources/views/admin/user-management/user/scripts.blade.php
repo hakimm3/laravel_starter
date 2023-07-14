@@ -1,4 +1,3 @@
-@push('js')
     {{-- select2 --}}
     <script src="{{ asset('asset_template/plugins/select2/js/select2.min.js') }}"></script>
     <script>
@@ -6,7 +5,6 @@
             responsive: true,
             autoWidth: false,
             serverSide: true,
-            stateSave: true,
             ajax: {
                 url: '',
                 data: function(d) {
@@ -91,9 +89,9 @@
             });
         }
 
-        function destroy(id) {
-            sendDestroy("{{ route('user-management.users.destroy', ':id') }}".replace(':id', id))
-        }
+        // function destroy(id) {
+            // destroy()
+        // }
 
         // select 2
         $('#role').select2({
@@ -113,4 +111,3 @@
             table.ajax.url("{{ route('user-management.users.index') }}?status=" + $(this).val()).load()
         })
     </script>
-@endpush

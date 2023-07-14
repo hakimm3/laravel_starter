@@ -25,6 +25,7 @@ class UserController extends Controller
                 })
                 ->withTrashed()
                 ->orderBy('id', 'asc');
+
             return DataTables::eloquent($users)
                 ->addIndexColumn()
                 ->addColumn('department', function ($row) {
@@ -33,7 +34,7 @@ class UserController extends Controller
                 ->addColumn('roles', function ($row) {
                     $roles = '';
                     foreach ($row->roles as $role) {
-                        $roles .= '<span class="badge badge-secondary">' . $role->name . '</span> ';
+                        $roles .= '<span class="badge badge-info">' . $role->name . '</span> ';
                     }
                     return $roles;
                 })

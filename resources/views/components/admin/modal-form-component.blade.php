@@ -18,3 +18,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function setCreate(title) {
+        $('#exampleModal').modal('show');
+        $('#exampleModal form')[0].reset();
+        $('#id').val('')
+        $('#exampleModal .modal-title').text(title);
+    }
+</script>

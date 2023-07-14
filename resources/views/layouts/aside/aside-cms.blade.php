@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item {{ request()->is('cms/*') ? 'menu-is-opening menu-open' : '' }}">
     <a href="#" class="nav-link {{ request()->is('cms/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-cog"></i>
         <p>
@@ -6,22 +6,22 @@
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
-    <ul class="nav nav-treeview {{ request()->is('cms/*') ? 'd-block' : '' }}">
+    <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{ route('cms.site.index') }}" class="nav-link {{ Route::is('cms.site.index') ? 'active' : '' }}">
+            <a href="{{ route('cms.site.index') }}" class="nav-link {{ request()->is('cms/site*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Site Setting</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('cms.theme.index') }}" class="nav-link {{ Route::is('cms.theme.index') ? 'active' : '' }}">
+            <a href="{{ route('cms.theme.index') }}" class="nav-link {{ request()->is('cms/theme*') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Theme</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('cms.slider.index') }}"
-                class="nav-link {{ Route::is('cms.slider.index') ? 'active' : '' }}">
+                class="nav-link {{ request()->is('cms/slider') ? 'active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Slider</p>
             </a>
