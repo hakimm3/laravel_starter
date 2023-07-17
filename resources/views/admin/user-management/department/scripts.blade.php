@@ -71,10 +71,6 @@
             })
         }
 
-        function destroy(id) {
-            sendDestroy("{{ route('user-management.department.destroy', ':id') }}".replace(':id', id));
-        }
-
         // filter 
         $('#status').on('change', function() {
             table.ajax.url("{{ route('user-management.department.index') }}?status=" + $(this).val()).load(false);

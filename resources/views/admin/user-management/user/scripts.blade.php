@@ -88,11 +88,7 @@
                 }
             });
         }
-
-        // function destroy(id) {
-            // destroy()
-        // }
-
+        
         // select 2
         $('#role').select2({
             theme: 'bootstrap4',

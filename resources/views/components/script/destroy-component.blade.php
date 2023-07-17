@@ -7,7 +7,7 @@
             showCancelButton: true,
             confirmButtonColor: '#556ee6',
             cancelButtonColor: '#f46a6a',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Yes, of course!'
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({

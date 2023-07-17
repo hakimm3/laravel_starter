@@ -54,9 +54,8 @@
         @endslot
     </x-admin.modal-form-component>
 @endsection
-
 @push('js')
-    <script>
-    </script>
+    <x-script.store-component />
+    <x-script.destroy-component />
 @endpush
 @include('admin.authorization.permission.scripts')

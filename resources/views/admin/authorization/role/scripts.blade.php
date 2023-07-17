@@ -64,10 +64,6 @@
             });
         }
 
-        function destroy(id) {
-            sendDestroy("{{ route('authorization.role.destroy', ':id') }}".replace(':id', id))
-        }
-
         $('#status').change(function() {
             table.ajax.url("{{ route('authorization.role.index') }}" + "?status=" + $(this).val()).load()
         });

@@ -66,4 +66,8 @@
     </x-admin.modal-form-component>
 
 @endsection
+@push('js')
+    <x-script.store-component />
+    <x-script.destroy-component />
+@endpush
 @include('admin.user-management.department.scripts')

@@ -7,7 +7,7 @@
             <i class="fa fa-edit"></i>
         </button>
     @else
-        <button class="btn btn-sm btn-outline-warning" onclick="destroy({{ $id }})">
+        <button class="btn btn-sm btn-outline-warning" onclick="destroy('{{ route('user-management.users.destroy', $id) }}')">
             <i class="fa fa-recycle"></i>
         </button>
     @endif
